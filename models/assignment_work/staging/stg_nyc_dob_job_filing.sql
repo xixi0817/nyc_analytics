@@ -23,7 +23,8 @@ cleaned AS (
            postcode,
            borough,
            latitude,
-           longitude
+           longitude,
+           zip
            
        ),
 
@@ -42,7 +43,7 @@ cleaned AS (
        CAST(filing_status AS STRING) AS filing_status,
        CAST(house_no AS STRING) AS house_no,
        CAST(street_name AS STRING) AS street_name,
-       CAST(postcode AS STRING) AS postcode,
+       --CAST(postcode AS STRING) AS postcode,
        CAST(borough AS STRING) AS borough,
        CAST(latitude AS DECIMAL) AS latitude,
        CAST(longitude AS DECIMAL) AS longitude,
@@ -58,7 +59,7 @@ cleaned AS (
                AND REGEXP_CONTAINS(CAST(postcode AS STRING), r'^\d{5}-\d{4}')
            THEN CAST(postcode AS STRING)
            ELSE NULL
-       END AS zip_code,
+       END AS zip,
 
        -- Location - standardized borough, just in case
          --CASE

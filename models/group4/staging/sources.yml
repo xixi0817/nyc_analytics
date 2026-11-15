@@ -1,0 +1,19 @@
+version: 2 # dbt properties file format version (required at the top of every .yml in models)
+
+# Tell dbt where the group 4 raw data lives in BigQuery
+sources:
+  - name: group4_raw   # name we use in source('group4_raw', ...) inside models
+    description: Raw data loaded from NYC Open Data with Cloud Functions for the group 4 project
+    database: xixilin-cis-baruch26fall   # GCP project id
+    schema: group4_project               # BigQuery dataset that holds the raw tables
+    tables:
+      # Primary source: DOB permits
+      - name: dob_permit_raw
+        description: |
+          NYC DOB Permit Issuance, issued 2020 onward.
+          One row per permit issuance record (initial or renewal).
+      # Secondary source: 311 construction complaints
+      - name: nyc311_construction_raw
+        description: |
+          NYC 311 service requests with complaint type General Construction/Plumbing, created 2020 onward.
+          One row per service request.

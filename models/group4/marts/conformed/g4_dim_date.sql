@@ -1,5 +1,7 @@
 -- Date dimension shared by DOB permits and 311 complaints (conformed)
 -- Grain: one row per calendar date
+-- Table name in BigQuery stays dim_date (file is named g4_ to avoid clashing with HW4's dim_date)
+{{ config(alias='dim_date') }}
 
 -- Build initial CTEs for Jinja syntax to make refs to staging models easier
 WITH stg_dob AS (

@@ -76,7 +76,10 @@ cleaned AS (
     WHERE unique_key IS NOT NULL
     AND complaint_type = 'General Construction/Plumbing'
     AND DATE(created_date) BETWEEN DATE '2020-01-01' AND DATE '2026-09-10'
-
+    
+    -- Keep only the five NYC boroughs (project scope in M3 notes)
+    AND UPPER(TRIM(borough)) IN ('MANHATTAN', 'BRONX', 'BROOKLYN', 'QUEENS', 'STATEN ISLAND')
+    
     -- Deduplicate: keep one row per unique_key
     QUALIFY ROW_NUMBER() OVER (PARTITION BY unique_key ORDER BY created_date DESC) = 1
 )

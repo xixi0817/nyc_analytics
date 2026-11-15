@@ -112,6 +112,9 @@ cleaned AS (
     WHERE permit_si_no IS NOT NULL
     AND SAFE.PARSE_DATE('%m/%d/%Y', issuance_date) BETWEEN DATE '2020-01-01' AND DATE '2026-09-10'
 
+    -- Keep only the five NYC boroughs (project scope in M3 notes)
+    AND UPPER(TRIM(borough)) IN ('MANHATTAN', 'BRONX', 'BROOKLYN', 'QUEENS', 'STATEN ISLAND')
+
     -- Deduplicate: keep one row per permit_si_no
     QUALIFY ROW_NUMBER() OVER (PARTITION BY permit_si_no ORDER BY issuance_date DESC) = 1
 )
